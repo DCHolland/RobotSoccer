@@ -1,0 +1,13 @@
+<launch>
+<!-- Change the address to the actual name of the robotyou are using.  -->
+<machine name="turtlebot" address="miranda" env-loader="/opt/ros/indigo/env.sh" user="turtlebot" password="turtlebot" />
+<arg name="marker_size" default="19.6" />
+<arg name="max_new_marker_error" default="0.08" />
+<arg name="max_track_error" default="0.2" />
+<arg name="cam_image_topic" default="/camera/depth_registered/points" />
+<arg name="cam_info_topic" default="/camera/rgb/camera_info" />
+<arg name="output_frame" default="/camera_rgb_optical_frame" />
+<node machine="turtlebot" name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkers" respawn="false" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" />
+<node name="ball_detector" pkg="ballfinder" type="BallFinder.py" />
+<node name="soccer_player" pkg="puppy" type="Puppy.py" output="screen" />
+</launch>
